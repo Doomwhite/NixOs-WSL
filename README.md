@@ -70,6 +70,18 @@ install win32yank` or compiling it from source, and then adding it to your `$PAT
 }
 ```
 
+## Set win32yank up
+
+
+```powershell
+scoop install win32yank
+```
+
+```bash
+mkdir -p ~/.local/bin
+ln -s /mnt/c/Users/<your-username>/scoop/shims/win32yank.exe ~/.local/bin/win32yank
+```
+
 ## Quickstart
 
 [![Watch the walkthrough video](https://img.youtube.com/vi/ZuVQds2hncs/hqdefault.jpg)](https://www.youtube.com/watch?v=ZuVQds2hncs)
