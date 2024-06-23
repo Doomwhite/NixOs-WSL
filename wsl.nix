@@ -24,6 +24,11 @@
   # FIXME: uncomment the next line to enable SSH
   # services.openssh.enable = true;
 
+  services.emacs = {
+    enable = true;
+    package = pkgs.emacs;
+  };
+
   users.users.${username} = {
     isNormalUser = true;
     # FIXME: change your shell here if you don't want fish
