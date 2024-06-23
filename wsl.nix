@@ -8,7 +8,7 @@
   ...
 }: {
   # FIXME: change to your tz! look it up with "timedatectl list-timezones"
-  time.timeZone = "America/Los_Angeles";
+  time.timeZone = "America/Sao_Paulo";
 
   networking.hostName = "${hostname}";
 
@@ -31,7 +31,7 @@
     extraGroups = [
       "wheel"
       # FIXME: uncomment the next line if you want to run docker without sudo
-      # "docker"
+      "docker"
     ];
     # FIXME: add your own hashed password
     # hashedPassword = "";

@@ -221,14 +221,15 @@
         "nixvim": "nixvim"
       },
       "locked": {
-        "narHash": "sha256-SohCTu6E55OACHKVT4JF2cp6y/qcTIDNd/mod9ayMB8=",
-        "owner": "LGUG2Z",
+        "lastModified": 1719161918,
+        "narHash": "sha256-xlZAYjcRxeFSm+XYijDOFo9fqDEVox/ELSvR/tWUAvg=",
+        "owner": "Doomwhite",
         "repo": "JeezyVim",
-        "rev": "a0613f7e08eb0d5df21e4d25a891e6d57877d26e",
+        "rev": "b79712feec25726fc947712088d1026e01a34f1b",
         "type": "github"
       },
       "original": {
-        "owner": "LGUG2Z",
+        "owner": "Doomwhite",
         "repo": "JeezyVim",
         "type": "github"
       }

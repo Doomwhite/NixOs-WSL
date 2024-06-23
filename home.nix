@@ -40,6 +40,8 @@
     # https://github.com/LGUG2Z/JeezyVim#extending
     jeezyvim
 
+    emacs
+
     # key tools
     gh # for bootstrapping
     just
@@ -71,6 +73,14 @@
     shfmt
     statix # nix
   ];
+
+  emacsConfig = pkgs.fetchFromGitHub {
+    owner = "Doomwhite";
+    repo = "emacs";
+    rev = "wsl";
+    sha256 = "1lp9drmkd8svry6ywbc6hj0j7jsb46gpbn6h27kr80hm0acgship";
+  };
+
 in {
   imports = [
     nix-index-database.hmModules.nix-index
@@ -141,8 +151,8 @@ in {
         side-by-side = true;
         navigate = true;
       };
-      userEmail = ""; # FIXME: set your git email
-      userName = ""; #FIXME: set your git username
+      userEmail = "doomwhitex@gmail.com"; # FIXME: set your git email
+      userName = "Doomwhite"; #FIXME: set your git username
       extraConfig = {
         # FIXME: uncomment the next lines if you want to be able to clone private https repos
         # url = {
@@ -183,6 +193,8 @@ in {
           + "/extras/kanagawa.fish")}
 
         set -U fish_greeting
+        fish_add_path --append ~/.local/bin
+        set -gx PATH $HOME/.local/bin $PATH
       '';
       functions = {
         refresh = "source $HOME/.config/fish/config.fish";
