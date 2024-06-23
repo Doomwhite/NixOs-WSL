@@ -40,8 +40,6 @@
     # https://github.com/LGUG2Z/JeezyVim#extending
     jeezyvim
 
-    emacs
-
     # key tools
     gh # for bootstrapping
     just
@@ -72,14 +70,9 @@
     shellcheck
     shfmt
     statix # nix
+    ibm-plex
+    cmake
   ];
-
-  emacsConfig = pkgs.fetchFromGitHub {
-    owner = "Doomwhite";
-    repo = "emacs";
-    rev = "wsl";
-    sha256 = "1lp9drmkd8svry6ywbc6hj0j7jsb46gpbn6h27kr80hm0acgship";
-  };
 
 in {
   imports = [
@@ -256,6 +249,11 @@ in {
           name = "sponge";
         }
       ];
+    };
+
+    emacs = {
+      enable = true;
+      package = pkgs.emacs;
     };
   };
 }
