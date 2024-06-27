@@ -74,6 +74,15 @@
     cmake
   ];
 
+  emacsRepo = "https://github.com/Doomwhite/emacs";
+  emacsBranch = "wsl";
+  emacsDir = ".emacs.d";
+  # emacsConfig = pkgs.fetchFromGitHub {
+  #   owner = "Doomwhite";
+  #   repo = "emacs";
+  #   rev = "wsl";
+  #   sha256 = "1lp9drmkd8svry6ywbc6hj0j7jsb46gpbn6h27kr80hm0acgship";
+  # };
 in {
   imports = [
     nix-index-database.hmModules.nix-index
@@ -144,8 +153,8 @@ in {
         side-by-side = true;
         navigate = true;
       };
-      userEmail = "doomwhitex@gmail.com"; # FIXME: set your git email
-      userName = "Doomwhite"; #FIXME: set your git username
+      userEmail = "doomwhitex@gmail.com";
+      userName = "Doomwhite";
       extraConfig = {
         # FIXME: uncomment the next lines if you want to be able to clone private https repos
         # url = {
@@ -166,13 +175,15 @@ in {
         diff = {
           colorMoved = "default";
         };
+        safe = {
+          directory = "~/configuration";
+        };
       };
     };
 
-    # FIXME: This is my fish config - you can fiddle with it if you want
     fish = {
       enable = true;
-      # FIXME: run 'scoop install win32yank' on Windows, then add this line with your Windows username to the bottom of interactiveShellInit
+      # run 'scoop install win32yank' on Windows, then add this line with your Windows username to the bottom of interactiveShellInit
       # fish_add_path --append /mnt/c/Users/<Your Windows Username>/scoop/apps/win32yank/0.1.1
       interactiveShellInit = ''
         ${pkgs.any-nix-shell}/bin/any-nix-shell fish --info-right | source
@@ -256,4 +267,84 @@ in {
       package = pkgs.emacs;
     };
   };
+
+  # home.file = {
+  #   ".emacs.d" = {
+  #     source = emacsConfig;
+  #     recursive = true;
+  #   };
+  # };
+
+  systemd.user.services."clone_emacs_repo" = {
+    Unit = {
+      Description = "Clone Doomwhite's emacs repository if not already present";
+    };
+    Install = {
+      WantedBy = ["default.target"];
+    };
+    Service = {
+      Type = "oneshot";
+      ExecStart = "${pkgs.writeShellScript "emacs_repo" ''
+        if [ ! -d ~/${emacsDir} ]; then
+          ${pkgs.git}/bin/git clone -b ${emacsBranch} ${emacsRepo} ~/${emacsDir}
+        fi
+      ''}";
+    };
+  };
+
+  # systemd.user.services."clone_emacs_repo" = {
+  #   description = "Clone Doomwhite's emacs repository if not already present";
+  #   serviceConfig = {
+  #     Type = "oneshot";
+  #     ExecStart = ''
+  #       if [ ! -d "~/${emacsDir}" ]; then
+  #         ${pkgs.git}/bin/git clone -b ${emacsBranch} ${emacsRepo} ~/${emacsDir}
+  #       fi
+  #     '';
+  #   };
+  # };
+
+  # systemd.user.services.clone_emacs_repo = {
+  #   serviceConfig.Type = "oneshot";
+  #   path = [
+  #     pkgs.git
+  #   ];
+  #   script = ''
+  #     if [ ! -d "~/${emacsDir}" ]; then
+  #       ${pkgs.git}/bin/git clone -b ${emacsBranch} ${emacsRepo} ~/${emacsDir}
+  #     fi
+  #   '';
+  # };
+  # systemd.user.services.clone_emacs_repo.enable = true;
+
+  # systemd.user.services."clone-emacs-repo" = {
+  #   path = [pkgs.git];
+  #   wantedBy = [ "default.target" ];
+  #   partOf = [ "default.target" ];
+  #   script = ''
+  #     if [ ! -d "~/${emacsDir}" ]; then
+  #       ${pkgs.git}/bin/git clone -b ${emacsBranch} ${emacsRepo} ~/${emacsDir}
+  #     fi
+  #   '';
+  # };
+  #
+  # systemd.user.services."clone-emacs-repo".enable = true;
+
+  # systemd.user.services.clone-emacs-repo = {
+  #   description = "Clone Doomwhite's emacs repository if not already present";
+  #   wantedBy = ["default.target"];
+  #   script = ''
+  #     if [ ! -d "~/${emacsDir}" ]; then
+  #       git clone -b ${emacsBranch} ${emacsRepo} ~/${emacsDir}
+  #     fi
+  #   '';
+  #   serviceConfig = {
+  #     Type = "oneshot";
+  #     ExecStart = "${pkgs.git}/bin/git clone -b ${emacsBranch} ${emacsRepo} ~/${emacsDir}";
+  #     User = "${username}";
+  #     WorkingDirectory = "/home/${username}";
+  #     RemainAfterExit = true;
+  #   };
+  # };
+  # systemd.user.service.clone-emacs-repo.enable = true;
 }
