@@ -1,18 +1,15 @@
 {
-  # FIXME: uncomment the next line if you want to reference your GitHub/GitLab access tokens and other secrets
-  # secrets,
+  secrets,
   username,
   hostname,
   pkgs,
   inputs,
   ...
 }: {
-  # FIXME: change to your tz! look it up with "timedatectl list-timezones"
   time.timeZone = "America/Sao_Paulo";
 
   networking.hostName = "${hostname}";
 
-  # FIXME: change your shell here if you don't want fish
   programs.fish.enable = true;
   environment.pathsToLink = ["/share/fish"];
   environment.shells = [pkgs.fish];
@@ -21,8 +18,7 @@
 
   security.sudo.wheelNeedsPassword = false;
 
-  # FIXME: uncomment the next line to enable SSH
-  # services.openssh.enable = true;
+  services.openssh.enable = true;
 
   services.emacs = {
     enable = true;
@@ -31,11 +27,9 @@
 
   users.users.${username} = {
     isNormalUser = true;
-    # FIXME: change your shell here if you don't want fish
     shell = pkgs.fish;
     extraGroups = [
       "wheel"
-      # FIXME: uncomment the next line if you want to run docker without sudo
       "docker"
     ];
     # FIXME: add your own hashed password
@@ -93,11 +87,9 @@
   nix = {
     settings = {
       trusted-users = [username];
-      # FIXME: use your access tokens from secrets.json here to be able to clone private repos on GitHub and GitLab
-      # access-tokens = [
-      #   "github.com=${secrets.github_token}"
-      #   "gitlab.com=OAuth2:${secrets.gitlab_token}"
-      # ];
+      access-tokens = [
+        "github.com=${secrets.github_token}"
+      ];
 
       accept-flake-config = true;
       auto-optimise-store = true;
