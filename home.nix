@@ -71,6 +71,7 @@
     statix # nix
     ibm-plex
     cmake
+    nerdfonts
   ];
 
   emacsRepo = "https://github.com/Doomwhite/emacs";
@@ -107,6 +108,8 @@ in {
       # pkgs.some-package
       # pkgs.unstable.some-other-package
     ];
+
+  fonts.fontconfig.enable = true;
 
   programs = {
     home-manager.enable = true;
