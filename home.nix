@@ -77,12 +77,6 @@
   emacsRepo = "https://github.com/Doomwhite/emacs";
   emacsBranch = "wsl";
   emacsDir = ".emacs.d";
-  # emacsConfig = pkgs.fetchFromGitHub {
-  #   owner = "Doomwhite";
-  #   repo = "emacs";
-  #   rev = "wsl";
-  #   sha256 = "1lp9drmkd8svry6ywbc6hj0j7jsb46gpbn6h27kr80hm0acgship";
-  # };
 in {
   imports = [
     nix-index-database.hmModules.nix-index
@@ -177,6 +171,29 @@ in {
         safe = {
           directory = "~/configuration";
         };
+        alias = {
+          br = "branch";
+          bra = "branch -a";
+          brl = "branch -l";
+          brr = "branch -r";
+          cga = "config --get-regexp alias";
+          cg = "config";
+          cgg = "config --global -e";
+          cgl = "config --local -e";
+          cm = "commit";
+          cmad = "commit --amend";
+          cmadam = "commit --amend -a -m";
+          cmadan = "commit --amend -a --no-edit";
+          cmadm = "commit --amend -m";
+          cmadn = "commit --amend --no-edit";
+          cmadpm = "commit --amend -p -m";
+          cmadpn = "commit --amend -p --no-edit";
+          cmam = "commit -a -m";
+          cmm = "commit -m";
+          cmp = "commit -p";
+          cmpm = "commit -p -m";
+          co = "checkout";
+        };
       };
     };
 
@@ -267,13 +284,6 @@ in {
     };
   };
 
-  # home.file = {
-  #   ".emacs.d" = {
-  #     source = emacsConfig;
-  #     recursive = true;
-  #   };
-  # };
-
   systemd.user.services."clone_emacs_repo" = {
     Unit = {
       Description = "Clone Doomwhite's emacs repository if not already present";
@@ -290,60 +300,4 @@ in {
       ''}";
     };
   };
-
-  # systemd.user.services."clone_emacs_repo" = {
-  #   description = "Clone Doomwhite's emacs repository if not already present";
-  #   serviceConfig = {
-  #     Type = "oneshot";
-  #     ExecStart = ''
-  #       if [ ! -d "~/${emacsDir}" ]; then
-  #         ${pkgs.git}/bin/git clone -b ${emacsBranch} ${emacsRepo} ~/${emacsDir}
-  #       fi
-  #     '';
-  #   };
-  # };
-
-  # systemd.user.services.clone_emacs_repo = {
-  #   serviceConfig.Type = "oneshot";
-  #   path = [
-  #     pkgs.git
-  #   ];
-  #   script = ''
-  #     if [ ! -d "~/${emacsDir}" ]; then
-  #       ${pkgs.git}/bin/git clone -b ${emacsBranch} ${emacsRepo} ~/${emacsDir}
-  #     fi
-  #   '';
-  # };
-  # systemd.user.services.clone_emacs_repo.enable = true;
-
-  # systemd.user.services."clone-emacs-repo" = {
-  #   path = [pkgs.git];
-  #   wantedBy = [ "default.target" ];
-  #   partOf = [ "default.target" ];
-  #   script = ''
-  #     if [ ! -d "~/${emacsDir}" ]; then
-  #       ${pkgs.git}/bin/git clone -b ${emacsBranch} ${emacsRepo} ~/${emacsDir}
-  #     fi
-  #   '';
-  # };
-  #
-  # systemd.user.services."clone-emacs-repo".enable = true;
-
-  # systemd.user.services.clone-emacs-repo = {
-  #   description = "Clone Doomwhite's emacs repository if not already present";
-  #   wantedBy = ["default.target"];
-  #   script = ''
-  #     if [ ! -d "~/${emacsDir}" ]; then
-  #       git clone -b ${emacsBranch} ${emacsRepo} ~/${emacsDir}
-  #     fi
-  #   '';
-  #   serviceConfig = {
-  #     Type = "oneshot";
-  #     ExecStart = "${pkgs.git}/bin/git clone -b ${emacsBranch} ${emacsRepo} ~/${emacsDir}";
-  #     User = "${username}";
-  #     WorkingDirectory = "/home/${username}";
-  #     RemainAfterExit = true;
-  #   };
-  # };
-  # systemd.user.service.clone-emacs-repo.enable = true;
 }
