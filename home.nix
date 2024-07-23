@@ -152,11 +152,11 @@ in {
       userEmail = "doomwhitex@gmail.com";
       userName = "Doomwhite";
       extraConfig = {
-        url = {
-          "https://oauth2:${secrets.github_token}@github.com" = {
-            insteadOf = "https://github.com";
-          };
-        };
+        #url = {
+        #  "https://oauth2:${secrets.github_token}@github.com" = {
+        #    insteadOf = "https://github.com";
+        #  };
+        #};
         core = {
           longspaths = true;
           preloadindex = true;
