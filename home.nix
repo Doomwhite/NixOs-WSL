@@ -152,11 +152,11 @@ in {
       userEmail = "doomwhitex@gmail.com";
       userName = "Doomwhite";
       extraConfig = {
-        #url = {
-        #  "https://oauth2:${secrets.github_token}@github.com" = {
-        #    insteadOf = "https://github.com";
-        #  };
-        #};
+        url = {
+          "https://oauth2:${secrets.github_token}@github.com" = {
+            insteadOf = "https://github.com";
+          };
+        };
         core = {
           longspaths = true;
           preloadindex = true;
@@ -298,8 +298,7 @@ in {
           gsl = "git stash list";
         };
       shellAliases = {
-        jvim = "nvim";
-        lvim = "nvim";
+        mxc = "emacsclient -c -n";
         pbcopy = "/mnt/c/Windows/System32/clip.exe";
         pbpaste = "/mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe -command 'Get-Clipboard'";
         explorer = "/mnt/c/Windows/explorer.exe";
