@@ -71,7 +71,7 @@
     statix # nix
     ibm-plex
     cmake
-    nerdfonts
+    (nerdfonts.override { fonts = [ "NerdFontsSymbolsOnly" ]; })
   ];
 
   emacsRepo = "https://github.com/Doomwhite/emacs";
