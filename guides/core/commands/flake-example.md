@@ -1,7 +1,7 @@
 # This contains a good example of using the phases 
 
 ## Create a new flake
-$ nix flake new hello
+$ nix flake new flake-example
 $ cd hello
 
 ## Build the flake in the current directory:

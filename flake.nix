@@ -80,6 +80,7 @@
     in {
       formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.alejandra;
 
+      # The nixos config is here
       nixosConfigurations.nixos = mkNixosConfiguration {
         hostname = "nixos";
         username = "doomwhite";
